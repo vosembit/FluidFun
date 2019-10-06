@@ -2,24 +2,15 @@
             GetData();
             GetNews();
         });
-
-
         function GetNews() {
-
-
-            setTimeout(GetData, 10000);
+           setTimeout(GetData, 10000);
         }
-
-
         function GetData() {
-
             var today = new Date();
             var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-
             var data_all = 'https://api.thingspeak.com/channels/262211/fields/1.json?start=2019-10-05%2000:00:00&offset=3';
             var data_today = 'https://api.thingspeak.com/channels/262211/fields/1.json?start=' + date + '%2000:00:00&offset=3';
             var data_age = 'https://api.thingspeak.com/channels/262211/fields/1/last_data_age.json';
-
             $.ajax({
                 url: data_all,
                 type: 'GET',
@@ -29,7 +20,6 @@
                         if (i == 'feeds') {
                             var users = 0;
                             var ubound = item.length;
-
                             for (var i = 0; i < item.length; i++) {
                                 var s = parseInt(item[i].field1);
                                 users = users + s;
@@ -67,7 +57,6 @@
                     alert(errorThrown);
                 }
             });
-
             $.ajax({
                 url: data_age,
                 type: 'GET',
@@ -80,7 +69,7 @@
                     alert(errorThrown);
                 }
             });
-            setTimeout(GetData, 10000);
+            setTimeout(GetData, 60000);
         }
 
 
