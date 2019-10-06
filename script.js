@@ -1,16 +1,17 @@
         $(document).ready(function () {
             GetData();
-            GetNews();
         });
-        function GetNews() {
-           setTimeout(GetData, 10000);
-        }
+
+
         function GetData() {
+
             var today = new Date();
             var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+
             var data_all = 'https://api.thingspeak.com/channels/262211/fields/1.json?start=2019-10-05%2000:00:00&offset=3';
             var data_today = 'https://api.thingspeak.com/channels/262211/fields/1.json?start=' + date + '%2000:00:00&offset=3';
             var data_age = 'https://api.thingspeak.com/channels/262211/fields/1/last_data_age.json';
+
             $.ajax({
                 url: data_all,
                 type: 'GET',
@@ -25,7 +26,11 @@
                                 users = users + s;
                             }
                             var last_time = new Date(item[ubound - 1].created_at);
-                            var last_date = last_time.getHours() + ':' + last_time.getMinutes();
+                            var fmin = last_time.getMinutes();
+                            if (fmin < 10) {
+                                fmin = "0" + fmin;
+                            }
+                            var last_date = last_time.getHours() + ':' + fmin;
                             $('#lastent_val').text(item[ubound - 1].field1);
                             $('#lastent_time').text(last_date);
                             $('#ent_size').text(ubound);
@@ -57,18 +62,19 @@
                     alert(errorThrown);
                 }
             });
-            $.ajax({
-                url: data_age,
-                type: 'GET',
-                contentType: "application/json",
-                success: function (data, textStatus, xhr) {
-                    var age = parseInt(data.last_data_age);
-                    $('#last_session_age').text((age / 60).toFixed());
-                },
-                error: function (xhr, textStatus, errorThrown) {
-                    alert(errorThrown);
-                }
-            });
+
+//            $.ajax({
+//                url: data_age,
+//                type: 'GET',
+//                contentType: "application/json",
+//                success: function (data, textStatus, xhr) {
+//                    var age = parseInt(data.last_data_age);
+//                    $('#last_session_age').text((age / 60).toFixed());
+//                },
+//                error: function (xhr, textStatus, errorThrown) {
+//                    alert(errorThrown);
+//                }
+//            });
             setTimeout(GetData, 60000);
         }
 
