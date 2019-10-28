@@ -8,7 +8,7 @@
             var today = new Date();
             var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 
-            var data_all = 'https://api.thingspeak.com/channels/262211/fields/1.json?start=2019-10-05%2000:00:00&offset=3';
+            var data_all = 'https://api.thingspeak.com/channels/262211/fields/1.json?start=2019-10-28%2000:00:00&offset=3';
             var data_today = 'https://api.thingspeak.com/channels/262211/fields/1.json?start=' + date + '%2000:00:00&offset=3';
             var data_age = 'https://api.thingspeak.com/channels/262211/fields/1/last_data_age.json';
 
@@ -19,8 +19,8 @@
                 success: function (data, textStatus, xhr) {
                     $.each(data, function (i, item) {
                         if (i == 'feeds') {
-                            var users = 0;
-                            var ubound = item.length;
+                            var users = 9385;
+                            var ubound = 7815 + item.length;
                             for (var i = 0; i < item.length; i++) {
                                 var s = parseInt(item[i].field1);
                                 users = users + s;
