@@ -19,11 +19,11 @@
                 success: function (data, textStatus, xhr) {
                     $.each(data, function (i, item) {
                         if (i == 'feeds') {
-                            var users = 9385;
-                            var ubound = 7815 + item.length;
+                            var users = 0;
+                            var ubound = item.length;
                             for (var i = 0; i < item.length; i++) {
                                 var s = parseInt(item[i].field1);
-                                users = users + s;
+                                users = 9385 + s;
                             }
                             var last_time = new Date(item[ubound - 1].created_at);
                             var fmin = last_time.getMinutes();
@@ -33,7 +33,7 @@
                             var last_date = last_time.getHours() + ':' + fmin;
                             $('#lastent_val').text(item[ubound - 1].field1);
                             $('#lastent_time').text(last_date);
-                            $('#ent_size').text(ubound);
+                            $('#ent_size').text(7815 + ubound);
                             $('#all_users').text(users);
                         }
                     });
